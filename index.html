@@ -1,12 +1,12 @@
- <!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#1F2A44" />
 
-  <title>Betax | Web Development & IT Solutions Built to Scale</title>
-  <meta name="description" content="Betax builds scalable websites, custom IT solutions, and e-learning platforms. Premium UI, performance-first engineering, and long-term support." />
+  <title>Betax | Web Development & IT Solutions</title>
+  <meta name="description" content="Betax builds fast, scalable websites, custom IT solutions, and e-learning platforms. Performance-first delivery with long-term support." />
   <meta name="robots" content="index,follow" />
 
   <!-- Favicons -->
@@ -19,7 +19,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:image" content="./og-cover.png" />
 
-  <!-- Fonts -->
+  <!-- Fonts (fast) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -43,20 +43,15 @@
   <style>
     :root{
       --bg:#070B14;
-      --bg2:#0B1220;
-      --card:rgba(255,255,255,.06);
-      --stroke:rgba(255,255,255,.10);
+      --panel:#0F1B33;
+      --panel2:#0C162C;
+      --stroke:rgba(255,255,255,.12);
       --text:#ECF2FF;
       --muted:#B7C2E3;
       --brand:#8E44AD;
       --accent:#4CC9F0;
-
-      /* LIGHTER shadows to reduce GPU work */
-      --shadow: 0 18px 55px rgba(0,0,0,.36);
-      --shadow2: 0 10px 26px rgba(0,0,0,.28);
-
-      --r: 22px;
-      --max: 1120px;
+      --r:18px;
+      --max:1120px;
     }
 
     *{box-sizing:border-box}
@@ -66,52 +61,18 @@
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
       background:
-        radial-gradient(900px 460px at 80% 10%, rgba(142,68,173,.18), transparent 60%),
-        radial-gradient(820px 480px at 10% 85%, rgba(76,201,240,.14), transparent 55%),
-        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 55%, var(--bg) 100%);
-      overflow-x:hidden;
+        radial-gradient(900px 520px at 80% 10%, rgba(142,68,173,.16), transparent 60%),
+        radial-gradient(900px 520px at 10% 90%, rgba(76,201,240,.12), transparent 55%),
+        linear-gradient(180deg, #060A12 0%, var(--bg) 60%, #060A12 100%);
     }
 
     a{color:inherit;text-decoration:none}
     .container{max-width:var(--max);margin:0 auto;padding:0 18px}
 
-    /* ✅ IMPORTANT PERFORMANCE FIX:
-       Make overlay absolute (not fixed) to reduce repaint cost on scroll */
-    .grid-overlay{
-      position:absolute; inset:0;
-      pointer-events:none; z-index:-1; opacity:.28;
-      background-image:
-        linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
-      background-size: 52px 52px;
-      mask-image: radial-gradient(650px 420px at 50% 20%, black 40%, transparent 75%);
-    }
-
-    /* ✅ Replace heavy blur-filter blobs with gradient blobs (NO filter: blur) */
-    .blob{
-      position:absolute; border-radius:999px;
-      opacity:.55; z-index:-1;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.12), transparent 55%);
-      transform: translate3d(0,0,0);
-      animation: floaty 12s ease-in-out infinite;
-      will-change: transform;  /* only transform animates */
-    }
-    .blob.b1{width:520px;height:520px;left:-150px;top:-160px;background:
-      radial-gradient(circle at 30% 30%, rgba(142,68,173,.42), transparent 60%)}
-    .blob.b2{width:520px;height:520px;right:-180px;top:200px;background:
-      radial-gradient(circle at 30% 30%, rgba(76,201,240,.32), transparent 60%); animation-duration:14s}
-    .blob.b3{width:460px;height:460px;left:18%;bottom:-220px;background:
-      radial-gradient(circle at 30% 30%, rgba(142,68,173,.28), transparent 60%); animation-duration:16s}
-    @keyframes floaty{
-      0%,100%{transform:translateY(0) translateX(0) scale(1)}
-      50%{transform:translateY(14px) translateX(10px) scale(1.03)}
-    }
-
-    /* NAV */
+    /* ===== Header (NO blur) ===== */
     header{
       position:sticky;top:0;z-index:50;
-      /* ✅ Remove backdrop-filter blur (heavy on some PCs) */
-      background: rgba(8,12,22,.86);
+      background: rgba(7,11,20,.92);
       border-bottom:1px solid var(--stroke);
     }
     .nav{
@@ -123,8 +84,11 @@
       font-weight:800;letter-spacing:.2px;
     }
     .brand small{
-      display:block;font-weight:500;color:var(--muted);
-      font-size:12px;margin-top:2px;
+      display:block;
+      font-weight:500;
+      color:var(--muted);
+      font-size:12px;
+      margin-top:2px;
     }
     .logo-img{
       width:40px;height:40px;border-radius:14px;
@@ -132,9 +96,8 @@
       background: rgba(255,255,255,.05);
       border:1px solid var(--stroke);
       padding:7px;
-      box-shadow: 0 10px 26px rgba(142,68,173,.16);
     }
-    nav{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    nav{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
     nav a{
       color:var(--muted);
       font-size:14px;
@@ -142,9 +105,8 @@
       border-radius:12px;
     }
     nav a:hover{color:var(--text);background:rgba(255,255,255,.06)}
-    .nav-cta{display:flex;gap:10px;align-items:center}
 
-    /* Buttons */
+    /* ===== Buttons (lightweight) ===== */
     .btn{
       display:inline-flex;align-items:center;gap:10px;
       padding:11px 14px;
@@ -155,83 +117,74 @@
       font-weight:700;
       font-size:14px;
       cursor:pointer;
-      transition: transform .15s ease, background .15s ease, border .15s ease;
-      box-shadow: var(--shadow2);
+      transition: transform .12s ease, background .12s ease, border .12s ease;
     }
-    .btn:hover{transform: translateY(-1px);background: rgba(255,255,255,.08)}
+    .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.08)}
     .btn.primary{
       border:1px solid rgba(255,255,255,.14);
       background: linear-gradient(135deg, rgba(142,68,173,1), rgba(76,201,240,.92));
     }
-    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.16);box-shadow:none}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.18)}
 
-    /* HERO */
-    .hero{position:relative;padding:58px 0 26px}
+    /* ===== Hero ===== */
+    .hero{padding:56px 0 26px}
     .hero-grid{
       display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:18px;
+      grid-template-columns: 1.12fr .88fr;
+      gap:14px;
       align-items:stretch;
     }
     .panel{
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
       border:1px solid var(--stroke);
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-      padding:26px;
-      position:relative;
-      overflow:hidden;
+      border-radius:var(--r);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      padding:22px;
     }
-    .panel:before{
-      content:"";
-      position:absolute;inset:-2px;pointer-events:none;opacity:.75;
-      background:
-        radial-gradient(720px 380px at 20% 10%, rgba(142,68,173,.18), transparent 60%),
-        radial-gradient(720px 380px at 95% 80%, rgba(76,201,240,.14), transparent 55%);
+    .panel2{
+      border:1px solid var(--stroke);
+      border-radius:var(--r);
+      background: linear-gradient(180deg, rgba(15,27,51,.72), rgba(12,22,44,.55));
+      padding:22px;
     }
-    .panel > *{position:relative;z-index:1}
-
     .pill{
       display:inline-flex;align-items:center;gap:10px;
       padding:8px 12px;border-radius:999px;
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,.05);
+      background: rgba(255,255,255,.04);
       color:var(--muted);
       font-size:13px;
     }
-    .dot{
-      width:9px;height:9px;border-radius:999px;background:var(--accent);
-      box-shadow:0 0 14px rgba(76,201,240,.35);
-    }
+    .dot{width:9px;height:9px;border-radius:999px;background:var(--accent)}
     h1{
       margin:14px 0 10px;
-      font-size:44px;line-height:1.05;
-      letter-spacing:-.9px;
+      font-size:42px;line-height:1.06;
+      letter-spacing:-.8px;
     }
     .sub{
-      margin:0;color:var(--muted);
-      line-height:1.7;max-width:62ch;font-size:16px;
+      margin:0;
+      color:var(--muted);
+      line-height:1.7;
+      max-width:65ch;
+      font-size:16px;
     }
-    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+
     .stats{
       display:grid;
-      grid-template-columns: repeat(3,1fr);
+      grid-template-columns:repeat(3,1fr);
       gap:10px;
-      margin-top:18px;
+      margin-top:16px;
     }
     .stat{
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,.05);
-      border-radius: 18px;
-      padding:12px 12px;
-      box-shadow: var(--shadow2);
+      border-radius:16px;
+      background: rgba(255,255,255,.04);
+      padding:12px;
     }
-    .stat b{display:block;font-size:16px}
-    .stat span{color:var(--muted);font-size:12px;line-height:1.4}
+    .stat b{display:block;font-size:15px}
+    .stat span{display:block;color:var(--muted);font-size:12px;line-height:1.5;margin-top:4px}
 
-    /* Side bullets */
-    .side h3{margin:0 0 10px;font-size:18px}
-    .bullets{display:grid;gap:10px;color:var(--muted);font-size:14px;line-height:1.55;margin-top:10px}
+    .bullets{display:grid;gap:10px;color:var(--muted);font-size:14px;line-height:1.6;margin-top:12px}
     .bullet{display:flex;gap:10px;align-items:flex-start}
     .tick{
       width:22px;height:22px;border-radius:10px;
@@ -241,40 +194,27 @@
       color:var(--accent);
       font-weight:900;
       margin-top:1px;
+      flex:0 0 auto;
     }
 
-    /* Sections */
-    section{padding:52px 0}
+    /* ===== Sections ===== */
+    section{padding:48px 0}
     .section-head{
       display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;
-      margin-bottom:18px;
+      margin-bottom:14px;
     }
     .section-head h2{margin:0;font-size:28px;letter-spacing:-.4px}
-    .section-head p{margin:0;color:var(--muted);max-width:70ch;line-height:1.7}
+    .section-head p{margin:0;color:var(--muted);max-width:72ch;line-height:1.7}
 
-    .cards{
-      display:grid;
-      grid-template-columns: repeat(3,1fr);
-      gap:14px;
-    }
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
     .card{
       border:1px solid var(--stroke);
+      border-radius:var(--r);
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border-radius: var(--r);
       padding:18px;
-      box-shadow: var(--shadow2);
-      transition: transform .18s ease, border .18s ease, background .18s ease;
-      position:relative;overflow:hidden;
-      will-change: transform; /* only transform */
+      transition: transform .12s ease, border .12s ease, background .12s ease;
     }
-    .card:after{
-      content:"";position:absolute;inset:-2px;opacity:0;pointer-events:none;transition:opacity .2s ease;
-      background: radial-gradient(420px 240px at 20% 10%, rgba(142,68,173,.14), transparent 60%),
-                  radial-gradient(420px 240px at 90% 80%, rgba(76,201,240,.10), transparent 55%);
-    }
-    .card:hover{transform: translateY(-3px);border-color: rgba(255,255,255,.18);background: rgba(255,255,255,.06)}
-    .card:hover:after{opacity:1}
-    .card > *{position:relative;z-index:1}
+    .card:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.06)}
     .ic{
       width:44px;height:44px;border-radius:16px;
       display:grid;place-items:center;
@@ -285,91 +225,36 @@
     .card h3{margin:8px 0 6px;font-size:16px}
     .card p{margin:0;color:var(--muted);line-height:1.7;font-size:14px}
 
-    /* Work/Solutions */
-    .work{
-      display:grid;
-      grid-template-columns: repeat(3,1fr);
-      gap:14px;
-    }
-    .work-item{
-      border:1px solid var(--stroke);
-      border-radius: var(--r);
-      padding:18px;
-      background:
-        radial-gradient(520px 260px at 20% 10%, rgba(76,201,240,.10), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      box-shadow: var(--shadow2);
-      position:relative;overflow:hidden;
-    }
-    .tag{
-      display:inline-flex;align-items:center;
-      padding:6px 10px;border-radius:999px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.05);
-      color:var(--muted);
-      font-size:12px;
-    }
-    .work-item h3{margin:12px 0 8px;font-size:16px}
-    .work-item ul{margin:0;padding-left:18px;color:var(--muted);line-height:1.7;font-size:14px}
-    .work-note{margin-top:14px;color:var(--muted);font-size:12px;line-height:1.6}
-
-    /* Testimonials */
-    .quotes{
-      display:grid;grid-template-columns: repeat(3,1fr);gap:14px;
-    }
-    .quote{
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.05);
-      border-radius: var(--r);
-      padding:18px;
-      box-shadow: var(--shadow2);
-    }
-    .quote p{margin:0;color:var(--muted);line-height:1.7;font-size:14px}
-    .quote b{display:block;margin-top:12px;font-size:14px;color:var(--text)}
-    .quote span{display:block;color:var(--muted);font-size:12px;margin-top:4px}
-
-    /* CTA band */
+    /* ===== CTA Band ===== */
     .cta-band{
       border:1px solid rgba(255,255,255,.16);
-      border-radius: 26px;
-      background: linear-gradient(135deg, rgba(142,68,173,.92), rgba(76,201,240,.72));
-      padding:22px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(142,68,173,.92), rgba(76,201,240,.70));
+      padding:20px;
       display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
-      box-shadow: var(--shadow);
     }
-    .cta-band h2{margin:0;font-size:20px}
+    .cta-band h3{margin:0;font-size:20px}
     .cta-band p{margin:6px 0 0;color:rgba(255,255,255,.86);line-height:1.6}
-    .cta-band .btn{background:rgba(0,0,0,.16);border:1px solid rgba(255,255,255,.22);box-shadow:none}
 
-    /* Contact */
-    .contact-grid{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:14px;
-    }
-    .form{
-      display:grid;gap:12px;margin-top:10px
-    }
+    /* ===== Contact ===== */
+    .contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:12px}
+    .form{display:grid;gap:12px;margin-top:10px}
     label{font-size:13px;color:var(--muted)}
     input, textarea, select{
       width:100%;
       padding:12px 12px;
-      border-radius: 16px;
+      border-radius:14px;
       border:1px solid var(--stroke);
       background: rgba(255,255,255,.04);
       color:var(--text);
       font-family:inherit;
       font-size:14px;
       outline:none;
-      transition: border .15s ease, background .15s ease;
-    }
-    input:focus, textarea:focus, select:focus{
-      border-color: rgba(76,201,240,.35);
-      background: rgba(255,255,255,.06);
     }
     textarea{min-height:120px;resize:vertical}
-    .hint{color:var(--muted);font-size:12px;line-height:1.6;margin-top:10px}
+    .hint{color:var(--muted);font-size:12px;line-height:1.6;margin-top:8px}
 
+    /* ===== Footer ===== */
     footer{
       border-top:1px solid var(--stroke);
       padding:26px 0 34px;
@@ -381,54 +266,37 @@
     .mini a{padding:6px 10px;border-radius:12px;border:1px solid transparent}
     .mini a:hover{border-color:var(--stroke);background:rgba(255,255,255,.05);color:var(--text)}
 
-    /* Floating WhatsApp */
+    /* ===== Floating WhatsApp (light) ===== */
     .wa{
       position:fixed;right:16px;bottom:16px;z-index:60;
       border-radius:999px;
-      background: rgba(37, 211, 102, .14);
-      border: 1px solid rgba(37, 211, 102, .28);
+      background: rgba(37, 211, 102, .16);
+      border: 1px solid rgba(37, 211, 102, .30);
       padding:10px 14px;
       display:flex;gap:10px;align-items:center;
-      box-shadow: 0 16px 50px rgba(0,0,0,.32);
-      transition: transform .15s ease, background .15s ease;
-      will-change: transform;
+      transition: transform .12s ease, background .12s ease;
     }
-    .wa:hover{transform:translateY(-2px);background: rgba(37,211,102,.18)}
+    .wa:hover{transform:translateY(-2px);background: rgba(37,211,102,.20)}
     .wa strong{font-size:13px}
     .wa small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
 
-    /* Reveal animations (kept, but lighter) */
-    .reveal{opacity:0;transform: translateY(12px);transition: opacity .55s ease, transform .55s ease}
-    .reveal.in{opacity:1;transform: translateY(0)}
-
+    /* Responsive */
     @media (max-width: 980px){
       .hero-grid{grid-template-columns:1fr}
       .stats{grid-template-columns:1fr}
-      .cards,.work,.quotes{grid-template-columns:1fr}
+      .grid3{grid-template-columns:1fr}
       .contact-grid{grid-template-columns:1fr}
-      h1{font-size:38px}
+      h1{font-size:36px}
     }
     @media (max-width: 520px){
       nav{display:none}
-      h1{font-size:34px}
-      .panel{padding:20px}
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      .blob{animation:none}
-      .reveal{transition:none}
-      .btn,.card{transition:none}
-      html{scroll-behavior:auto}
+      h1{font-size:32px}
+      .panel,.panel2{padding:18px}
     }
   </style>
 </head>
 
 <body>
-  <div class="grid-overlay"></div>
-  <div class="blob b1" aria-hidden="true"></div>
-  <div class="blob b2" aria-hidden="true"></div>
-  <div class="blob b3" aria-hidden="true"></div>
-
   <header>
     <div class="container">
       <div class="nav">
@@ -449,7 +317,7 @@
 
         <div class="nav-cta">
           <a class="btn ghost" href="#contact">Get a Quote</a>
-          <a class="btn primary" href="#contact">Free Consultation <span style="opacity:.9">→</span></a>
+          <a class="btn primary" href="#contact">Free Consultation →</a>
         </div>
       </div>
     </div>
@@ -458,23 +326,23 @@
   <main id="top" class="hero">
     <div class="container">
       <div class="hero-grid">
-        <div class="panel reveal">
+        <div class="panel">
           <span class="pill"><span class="dot"></span> Build Beyond Beta</span>
 
           <h1>
-            Premium websites & systems<br/>
+            Fast, scalable digital products<br/>
             built to <span style="color:var(--accent)">convert</span> and <span style="color:var(--brand)">scale</span>.
           </h1>
 
           <p class="sub">
-            Betax helps businesses, startups, and educators launch high-performance digital products:
-            conversion-ready websites, custom IT systems, and e-learning platforms — with clean UI and reliable engineering.
+            Betax helps businesses, startups, and educators launch high-performance websites,
+            custom IT systems, and e-learning platforms — with clean UI and reliable engineering.
           </p>
 
           <div class="hero-actions">
-            <a class="btn primary" href="#contact" id="ctaHero">Start Your Project <span style="opacity:.9">→</span></a>
-            <a class="btn" href="#" id="ctaHeroWA">WhatsApp Us 💬</a>
-            <a class="btn ghost" href="#work">See Use Cases</a>
+            <a class="btn primary" href="#contact">Start Your Project →</a>
+            <a class="btn" id="btnHeroWA" href="#">WhatsApp Us</a>
+            <a class="btn ghost" href="#services">Explore Services</a>
           </div>
 
           <div class="stats">
@@ -484,13 +352,13 @@
           </div>
         </div>
 
-        <aside class="panel side reveal">
-          <h3>What you get with Betax</h3>
+        <aside class="panel2">
+          <h3 style="margin:0 0 10px">What you get with Betax</h3>
 
           <div class="bullets">
-            <div class="bullet"><span class="tick">✓</span><span>Modern UI/UX that looks premium and sells.</span></div>
-            <div class="bullet"><span class="tick">✓</span><span>Clean code + scalable architecture (no shortcuts).</span></div>
-            <div class="bullet"><span class="tick">✓</span><span>Custom workflows for your team and operations.</span></div>
+            <div class="bullet"><span class="tick">✓</span><span>Premium UI/UX that builds trust and sells.</span></div>
+            <div class="bullet"><span class="tick">✓</span><span>Scalable architecture — no shortcuts.</span></div>
+            <div class="bullet"><span class="tick">✓</span><span>Custom workflows for your business.</span></div>
             <div class="bullet"><span class="tick">✓</span><span>Clear communication & reliable delivery.</span></div>
           </div>
 
@@ -502,7 +370,7 @@
           </div>
 
           <div style="margin-top:14px">
-            <a class="btn primary" href="#contact" id="ctaSide">Request Pricing <span style="opacity:.9">→</span></a>
+            <a class="btn primary" href="#contact" id="btnSide">Request Pricing →</a>
           </div>
         </aside>
       </div>
@@ -511,16 +379,16 @@
 
   <section id="services">
     <div class="container">
-      <div class="section-head reveal">
+      <div class="section-head">
         <div>
           <h2>Services</h2>
           <p>We build digital solutions that solve real problems — not just “a website”.</p>
         </div>
-        <a class="btn primary" href="#contact" id="ctaServices">Get a Free Consultation →</a>
+        <a class="btn primary" href="#contact">Get a Free Consultation →</a>
       </div>
 
-      <div class="cards">
-        <div class="card reveal">
+      <div class="grid3">
+        <div class="card">
           <div class="ic" aria-hidden="true">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
               <path d="M4 6.5h16M7 6.5v11M17 6.5v11M9.5 18.5h5" stroke="currentColor" stroke-width="1.8"/>
@@ -530,7 +398,7 @@
           <p>Corporate websites, landing pages, e-commerce, and custom web apps — designed to convert and load fast.</p>
         </div>
 
-        <div class="card reveal">
+        <div class="card">
           <div class="ic" aria-hidden="true" style="background:rgba(76,201,240,.14);border-color:rgba(76,201,240,.22)">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
               <path d="M12 3l8 4.5v9L12 21 4 16.5v-9L12 3z" stroke="currentColor" stroke-width="1.8"/>
@@ -541,7 +409,7 @@
           <p>Dashboards, CRM/ERP modules, automation, integrations, and internal tools tailored to your workflow.</p>
         </div>
 
-        <div class="card reveal">
+        <div class="card">
           <div class="ic" aria-hidden="true">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
               <path d="M4 7.5h16v9H4v-9z" stroke="currentColor" stroke-width="1.8"/>
@@ -558,45 +426,25 @@
 
   <section id="solutions">
     <div class="container">
-      <div class="section-head reveal">
+      <div class="section-head">
         <div>
           <h2>Popular solutions</h2>
           <p>Quick-to-launch packages that businesses and educators request most.</p>
         </div>
       </div>
 
-      <div class="work">
-        <div class="work-item reveal">
-          <span class="tag">Real Estate</span>
-          <h3>Lead-Driven Real Estate Website</h3>
-          <ul>
-            <li>Property listing pages + filters</li>
-            <li>WhatsApp / call CTA everywhere</li>
-            <li>Inquiry forms that convert</li>
-          </ul>
-          <div class="work-note">Perfect for companies that want more inquiries without increasing ad spend.</div>
+      <div class="grid3">
+        <div class="card">
+          <h3>Real Estate Lead Website</h3>
+          <p>Listings + filters + WhatsApp/call CTAs + inquiry forms that convert.</p>
         </div>
-
-        <div class="work-item reveal">
-          <span class="tag">SMEs</span>
+        <div class="card">
           <h3>Business Website + Lead System</h3>
-          <ul>
-            <li>Premium UI that builds trust</li>
-            <li>Service pages + strong CTA</li>
-            <li>Speed + SEO-ready structure</li>
-          </ul>
-          <div class="work-note">Best for service businesses in Egypt & Gulf markets.</div>
+          <p>Premium UI + strong structure + SEO-ready pages + fast performance.</p>
         </div>
-
-        <div class="work-item reveal">
-          <span class="tag">Education</span>
+        <div class="card">
           <h3>Teacher E-Learning Platform</h3>
-          <ul>
-            <li>Lessons + video library</li>
-            <li>Assignments & quizzes</li>
-            <li>Student progress tracking</li>
-          </ul>
-          <div class="work-note">Ideal for teachers and centers that want one platform for everything.</div>
+          <p>Lessons + video library + quizzes + assignments + student progress tracking.</p>
         </div>
       </div>
     </div>
@@ -604,29 +452,26 @@
 
   <section id="work">
     <div class="container">
-      <div class="section-head reveal">
+      <div class="section-head">
         <div>
           <h2>Selected work</h2>
-          <p>We can share real client references privately. Public case studies can be added after client approval.</p>
+          <p>We can share real client references privately. Public case studies can be added after approval.</p>
         </div>
-        <a class="btn" href="#contact" id="ctaWork">Request examples</a>
+        <a class="btn" href="#contact">Request examples</a>
       </div>
 
-      <div class="quotes">
-        <div class="quote reveal">
-          <p>“The structure and UI immediately improved how clients perceived our business.”</p>
-          <b>Client Feedback</b>
-          <span>Service business • Website revamp</span>
+      <div class="grid3">
+        <div class="card">
+          <h3>Corporate Website</h3>
+          <p>Modern UI, clear structure, and optimized conversion-focused layout.</p>
         </div>
-        <div class="quote reveal">
-          <p>“We reduced manual work with a dashboard that matches our workflow exactly.”</p>
-          <b>Client Feedback</b>
-          <span>SME • Custom system</span>
+        <div class="card">
+          <h3>Operations Dashboard</h3>
+          <p>Role-based access, reporting, and automation for daily workflows.</p>
         </div>
-        <div class="quote reveal">
-          <p>“The platform made it easy to teach, track students, and manage everything in one place.”</p>
-          <b>Client Feedback</b>
-          <span>Education • E-learning</span>
+        <div class="card">
+          <h3>E-Learning Platform</h3>
+          <p>Video lessons, quizzes, assignments, and progress reporting.</p>
         </div>
       </div>
     </div>
@@ -634,14 +479,14 @@
 
   <section>
     <div class="container">
-      <div class="cta-band reveal">
+      <div class="cta-band">
         <div>
-          <h2>Ready to build something that scales?</h2>
-          <p>Tell us your idea and get a clear plan, timeline, and pricing.</p>
+          <h3>Ready to build something that scales?</h3>
+          <p>Tell us your idea — we’ll reply with a clear plan, timeline, and pricing.</p>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <a class="btn" href="#" id="ctaBandWA">WhatsApp</a>
-          <a class="btn primary" href="#contact" id="ctaBand">Free Consultation →</a>
+          <a class="btn" id="btnBandWA" href="#">WhatsApp</a>
+          <a class="btn primary" href="#contact">Free Consultation →</a>
         </div>
       </div>
     </div>
@@ -649,7 +494,7 @@
 
   <section id="contact">
     <div class="container">
-      <div class="section-head reveal">
+      <div class="section-head">
         <div>
           <h2>Contact</h2>
           <p>Send details — we usually respond within 24 hours.</p>
@@ -657,7 +502,7 @@
       </div>
 
       <div class="contact-grid">
-        <div class="panel reveal">
+        <div class="panel">
           <h3 style="margin:0 0 8px">Tell us about your project</h3>
           <p style="margin:0;color:var(--muted);line-height:1.7">
             Share your goal, timeline, and any reference links. We’ll reply with next steps.
@@ -701,7 +546,7 @@
           </form>
         </div>
 
-        <div class="panel reveal">
+        <div class="panel2">
           <h3 style="margin:0 0 10px">Direct contact</h3>
           <div class="bullets" style="margin-top:8px">
             <div class="bullet"><span class="tick">☎</span><span><b style="color:var(--text)">WhatsApp:</b> +20 101 114 2377</span></div>
@@ -755,23 +600,10 @@
     }
 
     const msgDefault = "Hi Betax, I'd like a free consultation. My project is:";
-    document.getElementById("ctaHeroWA").href = waLink(msgDefault);
-    document.getElementById("ctaBandWA").href = waLink(msgDefault);
+    document.getElementById("btnHeroWA").href = waLink(msgDefault);
+    document.getElementById("btnBandWA").href = waLink(msgDefault);
     document.getElementById("waFloat").href = waLink(msgDefault);
 
-    // reveal on scroll
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){
-          e.target.classList.add("in");
-          io.unobserve(e.target);
-        }
-      });
-    }, {threshold: 0.12});
-
-    document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
-
-    // form -> WhatsApp
     document.getElementById("contactForm").addEventListener("submit", (e)=>{
       e.preventDefault();
       const name = document.getElementById("name").value.trim();
