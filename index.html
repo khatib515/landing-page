@@ -19,7 +19,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:image" content="./og-cover.png" />
 
-  <!-- Fonts (fast) -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -69,7 +69,7 @@
     a{color:inherit;text-decoration:none}
     .container{max-width:var(--max);margin:0 auto;padding:0 18px}
 
-    /* ===== Header (NO blur) ===== */
+    /* ===== Header ===== */
     header{
       position:sticky;top:0;z-index:50;
       background: rgba(7,11,20,.92);
@@ -84,11 +84,8 @@
       font-weight:800;letter-spacing:.2px;
     }
     .brand small{
-      display:block;
-      font-weight:500;
-      color:var(--muted);
-      font-size:12px;
-      margin-top:2px;
+      display:block;font-weight:500;color:var(--muted);
+      font-size:12px;margin-top:2px;
     }
     .logo-img{
       width:40px;height:40px;border-radius:14px;
@@ -97,6 +94,7 @@
       border:1px solid var(--stroke);
       padding:7px;
     }
+
     nav{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
     nav a{
       color:var(--muted);
@@ -106,7 +104,7 @@
     }
     nav a:hover{color:var(--text);background:rgba(255,255,255,.06)}
 
-    /* ===== Buttons (lightweight) ===== */
+    /* ===== Buttons ===== */
     .btn{
       display:inline-flex;align-items:center;gap:10px;
       padding:11px 14px;
@@ -125,6 +123,7 @@
       background: linear-gradient(135deg, rgba(142,68,173,1), rgba(76,201,240,.92));
     }
     .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.18)}
+    .nav-cta{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
     /* ===== Hero ===== */
     .hero{padding:56px 0 26px}
@@ -266,7 +265,7 @@
     .mini a{padding:6px 10px;border-radius:12px;border:1px solid transparent}
     .mini a:hover{border-color:var(--stroke);background:rgba(255,255,255,.05);color:var(--text)}
 
-    /* ===== Floating WhatsApp (light) ===== */
+    /* ===== Floating WhatsApp ===== */
     .wa{
       position:fixed;right:16px;bottom:16px;z-index:60;
       border-radius:999px;
@@ -279,6 +278,20 @@
     .wa:hover{transform:translateY(-2px);background: rgba(37,211,102,.20)}
     .wa strong{font-size:13px}
     .wa small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+
+    /* ===== RTL Support ===== */
+    body.rtl{ direction: rtl; text-align: right; }
+    body.rtl .nav{ flex-direction: row-reverse; }
+    body.rtl nav{ direction: rtl; }
+    body.rtl .hero-actions{ justify-content:flex-start; }
+    body.rtl .bullet{ flex-direction: row-reverse; }
+    body.rtl .section-head{ flex-direction: row-reverse; }
+    body.rtl .footer-inner{ flex-direction: row-reverse; }
+    body.rtl .mini{ justify-content:flex-start; }
+    body.rtl input, body.rtl textarea, body.rtl select{ direction: rtl; text-align:right; }
+    body.rtl .brand{ flex-direction: row-reverse; text-align:right; }
+    body.rtl .brand small{ text-align:right; }
+    body.rtl .wa{ flex-direction: row-reverse; }
 
     /* Responsive */
     @media (max-width: 980px){
@@ -303,21 +316,30 @@
         <a class="brand" href="#top" aria-label="Betax Home">
           <img src="./betax-logo.png" class="logo-img" alt="Betax logo" />
           <div>
-            Betax
-            <small>Web Development & IT Solutions</small>
+            <span data-en="Betax" data-ar="بتاكس">Betax</span>
+            <small data-en="Web Development & IT Solutions" data-ar="تطوير مواقع وحلول تقنية">Web Development & IT Solutions</small>
           </div>
         </a>
 
         <nav aria-label="Primary">
-          <a href="#services">Services</a>
-          <a href="#solutions">Solutions</a>
-          <a href="#work">Work</a>
-          <a href="#contact">Contact</a>
+          <a href="#services" data-en="Services" data-ar="الخدمات">Services</a>
+          <a href="#solutions" data-en="Solutions" data-ar="الحلول">Solutions</a>
+          <a href="#work" data-en="Work" data-ar="أعمالنا">Work</a>
+          <a href="#contact" data-en="Contact" data-ar="تواصل معنا">Contact</a>
         </nav>
 
         <div class="nav-cta">
-          <a class="btn ghost" href="#contact">Get a Quote</a>
-          <a class="btn primary" href="#contact">Free Consultation →</a>
+          <button class="btn ghost" id="langToggle" type="button">AR</button>
+
+          <a class="btn ghost" href="#contact"
+             data-en="Get a Quote" data-ar="اطلب عرض سعر">
+            Get a Quote
+          </a>
+
+          <a class="btn primary" href="#contact"
+             data-en="Free Consultation →" data-ar="استشارة مجانية ←">
+            Free Consultation →
+          </a>
         </div>
       </div>
     </div>
@@ -327,50 +349,89 @@
     <div class="container">
       <div class="hero-grid">
         <div class="panel">
-          <span class="pill"><span class="dot"></span> Build Beyond Beta</span>
+          <span class="pill">
+            <span class="dot"></span>
+            <span data-en="Build Beyond Beta" data-ar="ابدأ بقوة وتوسع بثبات">Build Beyond Beta</span>
+          </span>
 
           <h1>
-            Fast, scalable digital products<br/>
-            built to <span style="color:var(--accent)">convert</span> and <span style="color:var(--brand)">scale</span>.
+            <span data-en="Fast, scalable digital products" data-ar="منتجات رقمية سريعة وقابلة للتوسع">Fast, scalable digital products</span><br/>
+            <span data-en="built to " data-ar="مصممة لـ ">built to </span>
+            <span style="color:var(--accent)" data-en="convert" data-ar="تحقق نتائج">convert</span>
+            <span data-en=" and " data-ar=" و "> and </span>
+            <span style="color:var(--brand)" data-en="scale" data-ar="تتوسع">scale</span>.
           </h1>
 
-          <p class="sub">
+          <p class="sub"
+             data-en="Betax helps businesses, startups, and educators launch high-performance websites, custom IT systems, and e-learning platforms — with clean UI and reliable engineering."
+             data-ar="بتاكس تساعد الشركات والستارتابس والمدرسين على إطلاق مواقع سريعة وأنظمة تقنية مخصصة ومنصات تعليم إلكتروني — بتصميم احترافي وتنفيذ قوي.">
             Betax helps businesses, startups, and educators launch high-performance websites,
             custom IT systems, and e-learning platforms — with clean UI and reliable engineering.
           </p>
 
           <div class="hero-actions">
-            <a class="btn primary" href="#contact">Start Your Project →</a>
-            <a class="btn" id="btnHeroWA" href="#">WhatsApp Us</a>
-            <a class="btn ghost" href="#services">Explore Services</a>
+            <a class="btn primary" href="#contact"
+               data-en="Start Your Project →" data-ar="ابدأ مشروعك الآن ←">
+              Start Your Project →
+            </a>
+
+            <a class="btn" id="btnHeroWA" href="#"
+               data-en="WhatsApp Us" data-ar="راسلنا واتساب">
+              WhatsApp Us
+            </a>
+
+            <a class="btn ghost" href="#services"
+               data-en="Explore Services" data-ar="استعرض الخدمات">
+              Explore Services
+            </a>
           </div>
 
           <div class="stats">
-            <div class="stat"><b>Fast Delivery</b><span>Clear milestones & weekly updates.</span></div>
-            <div class="stat"><b>Performance-First</b><span>Speed, security, and scalability.</span></div>
-            <div class="stat"><b>Long-Term Support</b><span>Maintenance & continuous improvements.</span></div>
+            <div class="stat">
+              <b data-en="Fast Delivery" data-ar="تسليم سريع">Fast Delivery</b>
+              <span data-en="Clear milestones & weekly updates." data-ar="مراحل واضحة وتحديثات أسبوعية.">Clear milestones & weekly updates.</span>
+            </div>
+            <div class="stat">
+              <b data-en="Performance-First" data-ar="أداء أولاً">Performance-First</b>
+              <span data-en="Speed, security, and scalability." data-ar="سرعة وأمان وقابلية للتوسع.">Speed, security, and scalability.</span>
+            </div>
+            <div class="stat">
+              <b data-en="Long-Term Support" data-ar="دعم مستمر">Long-Term Support</b>
+              <span data-en="Maintenance & continuous improvements." data-ar="صيانة وتطوير مستمر.">Maintenance & continuous improvements.</span>
+            </div>
           </div>
         </div>
 
         <aside class="panel2">
-          <h3 style="margin:0 0 10px">What you get with Betax</h3>
+          <h3 style="margin:0 0 10px"
+              data-en="What you get with Betax"
+              data-ar="ماذا ستحصل مع بتاكس">
+            What you get with Betax
+          </h3>
 
           <div class="bullets">
-            <div class="bullet"><span class="tick">✓</span><span>Premium UI/UX that builds trust and sells.</span></div>
-            <div class="bullet"><span class="tick">✓</span><span>Scalable architecture — no shortcuts.</span></div>
-            <div class="bullet"><span class="tick">✓</span><span>Custom workflows for your business.</span></div>
-            <div class="bullet"><span class="tick">✓</span><span>Clear communication & reliable delivery.</span></div>
+            <div class="bullet"><span class="tick">✓</span><span data-en="Premium UI/UX that builds trust and sells." data-ar="تصميم احترافي يعزز الثقة ويزيد المبيعات.">Premium UI/UX that builds trust and sells.</span></div>
+            <div class="bullet"><span class="tick">✓</span><span data-en="Scalable architecture — no shortcuts." data-ar="بنية قابلة للتوسع بدون حلول مؤقتة.">Scalable architecture — no shortcuts.</span></div>
+            <div class="bullet"><span class="tick">✓</span><span data-en="Custom workflows for your business." data-ar="أنظمة مخصصة تناسب شغل شركتك.">Custom workflows for your business.</span></div>
+            <div class="bullet"><span class="tick">✓</span><span data-en="Clear communication & reliable delivery." data-ar="تواصل واضح وتسليم مضمون.">Clear communication & reliable delivery.</span></div>
           </div>
 
           <div style="margin-top:16px;border-top:1px solid var(--stroke);padding-top:14px">
-            <span class="pill"><span class="dot"></span> Best fit for</span>
-            <p style="margin:10px 0 0;color:var(--muted);line-height:1.7">
+            <span class="pill"><span class="dot"></span>
+              <span data-en="Best fit for" data-ar="مناسب لـ">Best fit for</span>
+            </span>
+            <p style="margin:10px 0 0;color:var(--muted);line-height:1.7"
+               data-en="SMEs • Startups • Real estate • Service businesses • Educational centers • Teachers"
+               data-ar="شركات • ستارتابس • عقارات • خدمات • مراكز تعليمية • مدرسين">
               SMEs • Startups • Real estate • Service businesses • Educational centers • Teachers
             </p>
           </div>
 
           <div style="margin-top:14px">
-            <a class="btn primary" href="#contact" id="btnSide">Request Pricing →</a>
+            <a class="btn primary" href="#contact" id="btnSide"
+               data-en="Request Pricing →" data-ar="اطلب الأسعار ←">
+              Request Pricing →
+            </a>
           </div>
         </aside>
       </div>
@@ -381,10 +442,16 @@
     <div class="container">
       <div class="section-head">
         <div>
-          <h2>Services</h2>
-          <p>We build digital solutions that solve real problems — not just “a website”.</p>
+          <h2 data-en="Services" data-ar="الخدمات">Services</h2>
+          <p data-en="We build digital solutions that solve real problems — not just “a website”."
+             data-ar="نقوم ببناء حلول رقمية تحل مشاكل حقيقية — وليس مجرد موقع.">
+            We build digital solutions that solve real problems — not just “a website”.
+          </p>
         </div>
-        <a class="btn primary" href="#contact">Get a Free Consultation →</a>
+        <a class="btn primary" href="#contact"
+           data-en="Get a Free Consultation →" data-ar="احصل على استشارة مجانية ←">
+          Get a Free Consultation →
+        </a>
       </div>
 
       <div class="grid3">
@@ -394,8 +461,11 @@
               <path d="M4 6.5h16M7 6.5v11M17 6.5v11M9.5 18.5h5" stroke="currentColor" stroke-width="1.8"/>
             </svg>
           </div>
-          <h3>Web Development</h3>
-          <p>Corporate websites, landing pages, e-commerce, and custom web apps — designed to convert and load fast.</p>
+          <h3 data-en="Web Development" data-ar="تطوير مواقع">Web Development</h3>
+          <p data-en="Corporate websites, landing pages, e-commerce, and custom web apps — designed to convert and load fast."
+             data-ar="مواقع شركات، لاندنج بيج، متاجر إلكترونية وتطبيقات مخصصة — بسرعة وأداء عالي.">
+            Corporate websites, landing pages, e-commerce, and custom web apps — designed to convert and load fast.
+          </p>
         </div>
 
         <div class="card">
@@ -405,8 +475,11 @@
               <path d="M12 12l8-4.5M12 12L4 7.5M12 12v9" stroke="currentColor" stroke-width="1.8" opacity=".9"/>
             </svg>
           </div>
-          <h3>Custom IT Solutions</h3>
-          <p>Dashboards, CRM/ERP modules, automation, integrations, and internal tools tailored to your workflow.</p>
+          <h3 data-en="Custom IT Solutions" data-ar="حلول تقنية مخصصة">Custom IT Solutions</h3>
+          <p data-en="Dashboards, CRM/ERP modules, automation, integrations, and internal tools tailored to your workflow."
+             data-ar="لوحات تحكم، أنظمة CRM/ERP، أوتوميشن، ربط APIs وأدوات داخلية تناسب شغلك.">
+            Dashboards, CRM/ERP modules, automation, integrations, and internal tools tailored to your workflow.
+          </p>
         </div>
 
         <div class="card">
@@ -417,8 +490,11 @@
               <path d="M8 11h8M8 13.8h6" stroke="currentColor" stroke-width="1.8" opacity=".9"/>
             </svg>
           </div>
-          <h3>E-Learning Platforms</h3>
-          <p>Teaching platforms with lessons, video content, assignments, quizzes, student tracking, and reports.</p>
+          <h3 data-en="E-Learning Platforms" data-ar="منصات تعليم إلكتروني">E-Learning Platforms</h3>
+          <p data-en="Teaching platforms with lessons, video content, assignments, quizzes, student tracking, and reports."
+             data-ar="منصات للمدرسين: دروس وفيديوهات وواجبات واختبارات ومتابعة للطلاب وتقارير.">
+            Teaching platforms with lessons, video content, assignments, quizzes, student tracking, and reports.
+          </p>
         </div>
       </div>
     </div>
@@ -428,23 +504,35 @@
     <div class="container">
       <div class="section-head">
         <div>
-          <h2>Popular solutions</h2>
-          <p>Quick-to-launch packages that businesses and educators request most.</p>
+          <h2 data-en="Popular solutions" data-ar="الحلول الأكثر طلبًا">Popular solutions</h2>
+          <p data-en="Quick-to-launch packages that businesses and educators request most."
+             data-ar="باقات سريعة التنفيذ هي الأكثر طلبًا للشركات والمدرسين.">
+            Quick-to-launch packages that businesses and educators request most.
+          </p>
         </div>
       </div>
 
       <div class="grid3">
         <div class="card">
-          <h3>Real Estate Lead Website</h3>
-          <p>Listings + filters + WhatsApp/call CTAs + inquiry forms that convert.</p>
+          <h3 data-en="Real Estate Lead Website" data-ar="موقع عقارات لجلب العملاء">Real Estate Lead Website</h3>
+          <p data-en="Listings + filters + WhatsApp/call CTAs + inquiry forms that convert."
+             data-ar="قوائم عقارات + فلترة + زر اتصال/واتساب + فورم طلب معاينة.">
+            Listings + filters + WhatsApp/call CTAs + inquiry forms that convert.
+          </p>
         </div>
         <div class="card">
-          <h3>Business Website + Lead System</h3>
-          <p>Premium UI + strong structure + SEO-ready pages + fast performance.</p>
+          <h3 data-en="Business Website + Lead System" data-ar="موقع شركة + نظام تسجيل العملاء">Business Website + Lead System</h3>
+          <p data-en="Premium UI + strong structure + SEO-ready pages + fast performance."
+             data-ar="تصميم قوي + صفحات جاهزة للسيو + أداء سريع + CTA واضح.">
+            Premium UI + strong structure + SEO-ready pages + fast performance.
+          </p>
         </div>
         <div class="card">
-          <h3>Teacher E-Learning Platform</h3>
-          <p>Lessons + video library + quizzes + assignments + student progress tracking.</p>
+          <h3 data-en="Teacher E-Learning Platform" data-ar="منصة مدرسين للتعليم الإلكتروني">Teacher E-Learning Platform</h3>
+          <p data-en="Lessons + video library + quizzes + assignments + student progress tracking."
+             data-ar="دروس + فيديوهات + اختبارات + واجبات + متابعة مستوى الطلاب.">
+            Lessons + video library + quizzes + assignments + student progress tracking.
+          </p>
         </div>
       </div>
     </div>
@@ -454,24 +542,36 @@
     <div class="container">
       <div class="section-head">
         <div>
-          <h2>Selected work</h2>
-          <p>We can share real client references privately. Public case studies can be added after approval.</p>
+          <h2 data-en="Selected work" data-ar="نماذج من الأعمال">Selected work</h2>
+          <p data-en="We can share real client references privately. Public case studies can be added after approval."
+             data-ar="يمكن مشاركة نماذج حقيقية بشكل خاص، ونشر دراسات حالة بعد موافقة العميل.">
+            We can share real client references privately. Public case studies can be added after approval.
+          </p>
         </div>
-        <a class="btn" href="#contact">Request examples</a>
+        <a class="btn" href="#contact" data-en="Request examples" data-ar="اطلب نماذج">Request examples</a>
       </div>
 
       <div class="grid3">
         <div class="card">
-          <h3>Corporate Website</h3>
-          <p>Modern UI, clear structure, and optimized conversion-focused layout.</p>
+          <h3 data-en="Corporate Website" data-ar="موقع شركة">Corporate Website</h3>
+          <p data-en="Modern UI, clear structure, and optimized conversion-focused layout."
+             data-ar="تصميم حديث وهيكل واضح ومعدل تحويل أعلى.">
+            Modern UI, clear structure, and optimized conversion-focused layout.
+          </p>
         </div>
         <div class="card">
-          <h3>Operations Dashboard</h3>
-          <p>Role-based access, reporting, and automation for daily workflows.</p>
+          <h3 data-en="Operations Dashboard" data-ar="لوحة تحكم وإدارة">Operations Dashboard</h3>
+          <p data-en="Role-based access, reporting, and automation for daily workflows."
+             data-ar="صلاحيات متعددة وتقارير وأتمتة لمهام الإدارة اليومية.">
+            Role-based access, reporting, and automation for daily workflows.
+          </p>
         </div>
         <div class="card">
-          <h3>E-Learning Platform</h3>
-          <p>Video lessons, quizzes, assignments, and progress reporting.</p>
+          <h3 data-en="E-Learning Platform" data-ar="منصة تعليم">E-Learning Platform</h3>
+          <p data-en="Video lessons, quizzes, assignments, and progress reporting."
+             data-ar="فيديوهات واختبارات وواجبات وتقارير تقدم الطلاب.">
+            Video lessons, quizzes, assignments, and progress reporting.
+          </p>
         </div>
       </div>
     </div>
@@ -481,12 +581,15 @@
     <div class="container">
       <div class="cta-band">
         <div>
-          <h3>Ready to build something that scales?</h3>
-          <p>Tell us your idea — we’ll reply with a clear plan, timeline, and pricing.</p>
+          <h3 data-en="Ready to build something that scales?" data-ar="جاهز تبدأ مشروع قابل للتوسع؟">Ready to build something that scales?</h3>
+          <p data-en="Tell us your idea — we’ll reply with a clear plan, timeline, and pricing."
+             data-ar="احكي فكرتك — ونرد عليك بخطة واضحة وجدول زمني وتسعير.">
+            Tell us your idea — we’ll reply with a clear plan, timeline, and pricing.
+          </p>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <a class="btn" id="btnBandWA" href="#">WhatsApp</a>
-          <a class="btn primary" href="#contact">Free Consultation →</a>
+          <a class="btn" id="btnBandWA" href="#" data-en="WhatsApp" data-ar="واتساب">WhatsApp</a>
+          <a class="btn primary" href="#contact" data-en="Free Consultation →" data-ar="استشارة مجانية ←">Free Consultation →</a>
         </div>
       </div>
     </div>
@@ -496,70 +599,81 @@
     <div class="container">
       <div class="section-head">
         <div>
-          <h2>Contact</h2>
-          <p>Send details — we usually respond within 24 hours.</p>
+          <h2 data-en="Contact" data-ar="تواصل معنا">Contact</h2>
+          <p data-en="Send details — we usually respond within 24 hours."
+             data-ar="ابعت التفاصيل — بنرد غالبًا خلال 24 ساعة.">
+            Send details — we usually respond within 24 hours.
+          </p>
         </div>
       </div>
 
       <div class="contact-grid">
         <div class="panel">
-          <h3 style="margin:0 0 8px">Tell us about your project</h3>
-          <p style="margin:0;color:var(--muted);line-height:1.7">
+          <h3 style="margin:0 0 8px"
+              data-en="Tell us about your project"
+              data-ar="احكي لنا عن مشروعك">
+            Tell us about your project
+          </h3>
+          <p style="margin:0;color:var(--muted);line-height:1.7"
+             data-en="Share your goal, timeline, and any reference links. We’ll reply with next steps."
+             data-ar="شارك الهدف والمدة وأي روابط مشابهة، وسنرد عليك بالخطوات القادمة.">
             Share your goal, timeline, and any reference links. We’ll reply with next steps.
           </p>
 
           <form class="form" id="contactForm">
             <div>
-              <label for="name">Full name</label>
+              <label for="name" data-en="Full name" data-ar="الاسم بالكامل">Full name</label>
               <input id="name" name="name" placeholder="Your name" required />
             </div>
 
             <div>
-              <label for="phone">Phone (optional)</label>
+              <label for="phone" data-en="Phone (optional)" data-ar="رقم الهاتف (اختياري)">Phone (optional)</label>
               <input id="phone" name="phone" placeholder="+20 ..." />
             </div>
 
             <div>
-              <label for="service">Service</label>
+              <label for="service" data-en="Service" data-ar="الخدمة">Service</label>
               <select id="service" name="service" required>
-                <option value="" selected disabled>Select a service</option>
-                <option>Web Development</option>
-                <option>Custom IT Solutions</option>
-                <option>E-Learning Platform</option>
-                <option>Support & Maintenance</option>
+                <option value="" selected disabled data-en="Select a service" data-ar="اختر الخدمة">Select a service</option>
+                <option data-en="Web Development" data-ar="تطوير مواقع">Web Development</option>
+                <option data-en="Custom IT Solutions" data-ar="حلول تقنية مخصصة">Custom IT Solutions</option>
+                <option data-en="E-Learning Platform" data-ar="منصة تعليم إلكتروني">E-Learning Platform</option>
+                <option data-en="Support & Maintenance" data-ar="دعم وصيانة">Support & Maintenance</option>
               </select>
             </div>
 
             <div>
-              <label for="msg">Project details</label>
+              <label for="msg" data-en="Project details" data-ar="تفاصيل المشروع">Project details</label>
               <textarea id="msg" name="msg" placeholder="What are you building? Features, timeline, budget range (optional), and any links..."></textarea>
             </div>
 
             <div style="display:flex;gap:10px;flex-wrap:wrap">
-              <button class="btn primary" type="submit">Send via WhatsApp →</button>
-              <a class="btn ghost" href="mailto:engmocs2020@gmail.com">Email Us</a>
+              <button class="btn primary" type="submit" data-en="Send via WhatsApp →" data-ar="إرسال على واتساب ←">Send via WhatsApp →</button>
+              <a class="btn ghost" href="mailto:engmocs2020@gmail.com" data-en="Email Us" data-ar="راسلنا بريدياً">Email Us</a>
             </div>
 
-            <div class="hint">
+            <div class="hint"
+                 data-en="Tip: If you share a reference website, we can estimate faster."
+                 data-ar="ملاحظة: لو أرسلت موقع مشابه، نقدر نحدد التكلفة أسرع.">
               Tip: If you share a reference website, we can estimate faster.
             </div>
           </form>
         </div>
 
         <div class="panel2">
-          <h3 style="margin:0 0 10px">Direct contact</h3>
+          <h3 style="margin:0 0 10px" data-en="Direct contact" data-ar="تواصل مباشر">Direct contact</h3>
           <div class="bullets" style="margin-top:8px">
-            <div class="bullet"><span class="tick">☎</span><span><b style="color:var(--text)">WhatsApp:</b> +20 101 114 2377</span></div>
-            <div class="bullet"><span class="tick">@</span><span><b style="color:var(--text)">Email:</b> engmocs2020@gmail.com</span></div>
-            <div class="bullet"><span class="tick">⏱</span><span><b style="color:var(--text)">Response:</b> within 24 hours</span></div>
+            <div class="bullet"><span class="tick">☎</span><span><b style="color:var(--text)" data-en="WhatsApp:" data-ar="واتساب:">WhatsApp:</b> +20 101 114 2377</span></div>
+            <div class="bullet"><span class="tick">@</span><span><b style="color:var(--text)" data-en="Email:" data-ar="البريد:">Email:</b> engmocs2020@gmail.com</span></div>
+            <div class="bullet"><span class="tick">⏱</span><span><b style="color:var(--text)" data-en="Response:" data-ar="الرد:">Response:</b> <span data-en="within 24 hours" data-ar="خلال 24 ساعة">within 24 hours</span></span></div>
           </div>
 
           <div style="margin-top:16px;border-top:1px solid var(--stroke);padding-top:14px">
-            <span class="pill"><span class="dot"></span> What to include</span>
+            <span class="pill"><span class="dot"></span> <span data-en="What to include" data-ar="ماذا تكتب؟">What to include</span></span>
             <ul style="margin:10px 0 0;padding-left:18px;color:var(--muted);line-height:1.75;font-size:14px">
-              <li>Your business goal (leads, sales, automation…)</li>
-              <li>Top 3 must-have features</li>
-              <li>Any reference links</li>
+              <li data-en="Your business goal (leads, sales, automation…)" data-ar="هدفك (عملاء، مبيعات، أتمتة…)">Your business goal (leads, sales, automation…)</li>
+              <li data-en="Top 3 must-have features" data-ar="أهم 3 مميزات مطلوبة">Top 3 must-have features</li>
+              <li data-en="Any reference links" data-ar="روابط مواقع مشابهة إن وجدت">Any reference links</li>
             </ul>
           </div>
         </div>
@@ -570,11 +684,11 @@
   <footer>
     <div class="container">
       <div class="footer-inner">
-        <div>© <span id="year"></span> Betax. All rights reserved.</div>
+        <div>© <span id="year"></span> <span data-en="Betax. All rights reserved." data-ar="بتاكس. جميع الحقوق محفوظة.">Betax. All rights reserved.</span></div>
         <div class="mini">
-          <a href="#services">Services</a>
-          <a href="#solutions">Solutions</a>
-          <a href="#contact">Contact</a>
+          <a href="#services" data-en="Services" data-ar="الخدمات">Services</a>
+          <a href="#solutions" data-en="Solutions" data-ar="الحلول">Solutions</a>
+          <a href="#contact" data-en="Contact" data-ar="تواصل معنا">Contact</a>
         </div>
       </div>
     </div>
@@ -586,39 +700,95 @@
       <path d="M12.8 10.6c-.2-.5-.4-.5-.7-.5h-.6c-.2 0-.5.1-.7.4-.2.3-.9.8-.9 2 0 1.2.9 2.4 1 2.5.1.2 1.8 2.8 4.4 3.8 2.1.8 2.6.6 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.5-.3l-1.5-.7c-.2-.1-.4-.1-.6.1l-.7.9c-.1.2-.3.2-.5.1-.2-.1-.9-.3-1.7-1-.6-.5-1-1.2-1.1-1.4-.1-.2 0-.3.1-.4l.4-.5c.1-.1.2-.3.2-.4 0-.1 0-.3-.1-.4l-.7-1.5Z" fill="rgba(37,211,102,.9)"/>
     </svg>
     <div>
-      <strong>WhatsApp</strong>
-      <small>Quick response</small>
+      <strong data-en="WhatsApp" data-ar="واتساب">WhatsApp</strong>
+      <small data-en="Quick response" data-ar="رد سريع">Quick response</small>
     </div>
   </a>
 
   <script>
-    const WHATSAPP_NUMBER = "201011142377";
+    // ===== CONFIG =====
+    const WHATSAPP_NUMBER = "201011142377"; // no +
     document.getElementById("year").textContent = new Date().getFullYear();
 
     function waLink(message){
       return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     }
 
-    const msgDefault = "Hi Betax, I'd like a free consultation. My project is:";
-    document.getElementById("btnHeroWA").href = waLink(msgDefault);
-    document.getElementById("btnBandWA").href = waLink(msgDefault);
-    document.getElementById("waFloat").href = waLink(msgDefault);
+    // WhatsApp buttons
+    const msgDefaultEN = "Hi Betax, I'd like a free consultation. My project is:";
+    const msgDefaultAR = "مرحباً بتاكس، أريد استشارة مجانية. تفاصيل مشروعي:";
 
+    const btnHeroWA = document.getElementById("btnHeroWA");
+    const btnBandWA = document.getElementById("btnBandWA");
+    const waFloat = document.getElementById("waFloat");
+
+    // Language toggle
+    const toggle = document.getElementById("langToggle");
+    let currentLang = "en";
+
+    function applyLang(lang){
+      currentLang = lang;
+
+      // html lang + body direction
+      document.documentElement.lang = (lang === "ar") ? "ar" : "en";
+      document.body.classList.toggle("rtl", lang === "ar");
+
+      // toggle button label
+      toggle.textContent = (lang === "ar") ? "EN" : "AR";
+
+      // replace text nodes
+      document.querySelectorAll("[data-en]").forEach(el => {
+        el.textContent = el.dataset[lang];
+      });
+
+      // fix select options (textContent already updated above, but keep selected label stable)
+      // WhatsApp default text
+      const msg = (lang === "ar") ? msgDefaultAR : msgDefaultEN;
+      btnHeroWA.href = waLink(msg);
+      btnBandWA.href = waLink(msg);
+      waFloat.href = waLink(msg);
+
+      // placeholders (optional, kept simple)
+      const name = document.getElementById("name");
+      const phone = document.getElementById("phone");
+      const msgArea = document.getElementById("msg");
+      name.placeholder = (lang === "ar") ? "اسمك" : "Your name";
+      phone.placeholder = (lang === "ar") ? "+20 ..." : "+20 ...";
+      msgArea.placeholder = (lang === "ar")
+        ? "هتبني إيه؟ المميزات المطلوبة والمدة وأي روابط مشابهة..."
+        : "What are you building? Features, timeline, budget range (optional), and any links...";
+    }
+
+    // init links
+    applyLang("en");
+
+    toggle.addEventListener("click", () => {
+      applyLang(currentLang === "en" ? "ar" : "en");
+    });
+
+    // Form -> WhatsApp
     document.getElementById("contactForm").addEventListener("submit", (e)=>{
       e.preventDefault();
       const name = document.getElementById("name").value.trim();
       const phone = document.getElementById("phone").value.trim();
       const service = document.getElementById("service").value.trim();
-      const msg = document.getElementById("msg").value.trim();
+      const details = document.getElementById("msg").value.trim();
 
-      const composed =
+      const composedEN =
         `Hi Betax, I'd like a quote.\n\n` +
         `Name: ${name}\n` +
         (phone ? `Phone: ${phone}\n` : "") +
         `Service: ${service}\n` +
-        `Details: ${msg || "N/A"}\n`;
+        `Details: ${details || "N/A"}\n`;
 
-      window.open(waLink(composed), "_blank", "noopener,noreferrer");
+      const composedAR =
+        `مرحباً بتاكس، أريد عرض سعر.\n\n` +
+        `الاسم: ${name}\n` +
+        (phone ? `الهاتف: ${phone}\n` : "") +
+        `الخدمة: ${service}\n` +
+        `التفاصيل: ${details || "غير محدد"}\n`;
+
+      window.open(waLink(currentLang === "ar" ? composedAR : composedEN), "_blank", "noopener,noreferrer");
     });
   </script>
 </body>
