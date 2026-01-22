@@ -1,4 +1,4 @@
-<!doctype html>
+ <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -48,11 +48,13 @@
       --stroke:rgba(255,255,255,.10);
       --text:#ECF2FF;
       --muted:#B7C2E3;
-      --brand:#8E44AD;   /* purple */
-      --brand2:#1F2A44;  /* deep blue */
-      --accent:#4CC9F0;  /* cyan */
-      --shadow: 0 24px 80px rgba(0,0,0,.42);
-      --shadow2: 0 14px 45px rgba(0,0,0,.35);
+      --brand:#8E44AD;
+      --accent:#4CC9F0;
+
+      /* LIGHTER shadows to reduce GPU work */
+      --shadow: 0 18px 55px rgba(0,0,0,.36);
+      --shadow2: 0 10px 26px rgba(0,0,0,.28);
+
       --r: 22px;
       --max: 1120px;
     }
@@ -64,8 +66,8 @@
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
       background:
-        radial-gradient(1000px 500px at 80% 10%, rgba(142,68,173,.20), transparent 60%),
-        radial-gradient(900px 520px at 10% 85%, rgba(76,201,240,.16), transparent 55%),
+        radial-gradient(900px 460px at 80% 10%, rgba(142,68,173,.18), transparent 60%),
+        radial-gradient(820px 480px at 10% 85%, rgba(76,201,240,.14), transparent 55%),
         linear-gradient(180deg, var(--bg) 0%, var(--bg2) 55%, var(--bg) 100%);
       overflow-x:hidden;
     }
@@ -73,35 +75,43 @@
     a{color:inherit;text-decoration:none}
     .container{max-width:var(--max);margin:0 auto;padding:0 18px}
 
-    /* subtle grid overlay */
+    /* ✅ IMPORTANT PERFORMANCE FIX:
+       Make overlay absolute (not fixed) to reduce repaint cost on scroll */
     .grid-overlay{
-      position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.35;
+      position:absolute; inset:0;
+      pointer-events:none; z-index:-1; opacity:.28;
       background-image:
-        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
-      background-size: 48px 48px;
+        linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 52px 52px;
       mask-image: radial-gradient(650px 420px at 50% 20%, black 40%, transparent 75%);
     }
 
-    /* floating blobs */
+    /* ✅ Replace heavy blur-filter blobs with gradient blobs (NO filter: blur) */
     .blob{
-      position:absolute;border-radius:999px;filter: blur(40px);
-      opacity:.55;z-index:-1;transform: translate3d(0,0,0);
-      animation: floaty 10s ease-in-out infinite;
+      position:absolute; border-radius:999px;
+      opacity:.55; z-index:-1;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.12), transparent 55%);
+      transform: translate3d(0,0,0);
+      animation: floaty 12s ease-in-out infinite;
+      will-change: transform;  /* only transform animates */
     }
-    .blob.b1{width:520px;height:520px;left:-120px;top:-120px;background:rgba(142,68,173,.28)}
-    .blob.b2{width:520px;height:520px;right:-160px;top:180px;background:rgba(76,201,240,.20);animation-duration:12s}
-    .blob.b3{width:460px;height:460px;left:20%;bottom:-220px;background:rgba(142,68,173,.16);animation-duration:14s}
+    .blob.b1{width:520px;height:520px;left:-150px;top:-160px;background:
+      radial-gradient(circle at 30% 30%, rgba(142,68,173,.42), transparent 60%)}
+    .blob.b2{width:520px;height:520px;right:-180px;top:200px;background:
+      radial-gradient(circle at 30% 30%, rgba(76,201,240,.32), transparent 60%); animation-duration:14s}
+    .blob.b3{width:460px;height:460px;left:18%;bottom:-220px;background:
+      radial-gradient(circle at 30% 30%, rgba(142,68,173,.28), transparent 60%); animation-duration:16s}
     @keyframes floaty{
       0%,100%{transform:translateY(0) translateX(0) scale(1)}
-      50%{transform:translateY(18px) translateX(12px) scale(1.04)}
+      50%{transform:translateY(14px) translateX(10px) scale(1.03)}
     }
 
     /* NAV */
     header{
       position:sticky;top:0;z-index:50;
-      background: rgba(8,12,22,.65);
-      backdrop-filter: blur(14px);
+      /* ✅ Remove backdrop-filter blur (heavy on some PCs) */
+      background: rgba(8,12,22,.86);
       border-bottom:1px solid var(--stroke);
     }
     .nav{
@@ -113,11 +123,8 @@
       font-weight:800;letter-spacing:.2px;
     }
     .brand small{
-      display:block;
-      font-weight:500;
-      color:var(--muted);
-      font-size:12px;
-      margin-top:2px;
+      display:block;font-weight:500;color:var(--muted);
+      font-size:12px;margin-top:2px;
     }
     .logo-img{
       width:40px;height:40px;border-radius:14px;
@@ -125,11 +132,9 @@
       background: rgba(255,255,255,.05);
       border:1px solid var(--stroke);
       padding:7px;
-      box-shadow: 0 14px 40px rgba(142,68,173,.18);
+      box-shadow: 0 10px 26px rgba(142,68,173,.16);
     }
-    nav{
-      display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;
-    }
+    nav{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
     nav a{
       color:var(--muted);
       font-size:14px;
@@ -139,7 +144,7 @@
     nav a:hover{color:var(--text);background:rgba(255,255,255,.06)}
     .nav-cta{display:flex;gap:10px;align-items:center}
 
-    /* buttons */
+    /* Buttons */
     .btn{
       display:inline-flex;align-items:center;gap:10px;
       padding:11px 14px;
@@ -151,7 +156,7 @@
       font-size:14px;
       cursor:pointer;
       transition: transform .15s ease, background .15s ease, border .15s ease;
-      box-shadow: 0 14px 45px rgba(0,0,0,.22);
+      box-shadow: var(--shadow2);
     }
     .btn:hover{transform: translateY(-1px);background: rgba(255,255,255,.08)}
     .btn.primary{
@@ -159,13 +164,9 @@
       background: linear-gradient(135deg, rgba(142,68,173,1), rgba(76,201,240,.92));
     }
     .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.16);box-shadow:none}
-    .btn .arrow{opacity:.95}
 
     /* HERO */
-    .hero{
-      position:relative;
-      padding:58px 0 26px;
-    }
+    .hero{position:relative;padding:58px 0 26px}
     .hero-grid{
       display:grid;
       grid-template-columns: 1.1fr .9fr;
@@ -183,10 +184,10 @@
     }
     .panel:before{
       content:"";
-      position:absolute;inset:-2px;pointer-events:none;opacity:.85;
+      position:absolute;inset:-2px;pointer-events:none;opacity:.75;
       background:
-        radial-gradient(750px 420px at 20% 10%, rgba(142,68,173,.22), transparent 60%),
-        radial-gradient(750px 420px at 95% 80%, rgba(76,201,240,.16), transparent 55%);
+        radial-gradient(720px 380px at 20% 10%, rgba(142,68,173,.18), transparent 60%),
+        radial-gradient(720px 380px at 95% 80%, rgba(76,201,240,.14), transparent 55%);
     }
     .panel > *{position:relative;z-index:1}
 
@@ -200,7 +201,7 @@
     }
     .dot{
       width:9px;height:9px;border-radius:999px;background:var(--accent);
-      box-shadow:0 0 18px rgba(76,201,240,.45);
+      box-shadow:0 0 14px rgba(76,201,240,.35);
     }
     h1{
       margin:14px 0 10px;
@@ -208,11 +209,8 @@
       letter-spacing:-.9px;
     }
     .sub{
-      margin:0;
-      color:var(--muted);
-      line-height:1.7;
-      max-width:62ch;
-      font-size:16px;
+      margin:0;color:var(--muted);
+      line-height:1.7;max-width:62ch;font-size:16px;
     }
     .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
     .stats{
@@ -231,7 +229,7 @@
     .stat b{display:block;font-size:16px}
     .stat span{color:var(--muted);font-size:12px;line-height:1.4}
 
-    /* side card */
+    /* Side bullets */
     .side h3{margin:0 0 10px;font-size:18px}
     .bullets{display:grid;gap:10px;color:var(--muted);font-size:14px;line-height:1.55;margin-top:10px}
     .bullet{display:flex;gap:10px;align-items:flex-start}
@@ -267,11 +265,12 @@
       box-shadow: var(--shadow2);
       transition: transform .18s ease, border .18s ease, background .18s ease;
       position:relative;overflow:hidden;
+      will-change: transform; /* only transform */
     }
     .card:after{
       content:"";position:absolute;inset:-2px;opacity:0;pointer-events:none;transition:opacity .2s ease;
-      background: radial-gradient(420px 240px at 20% 10%, rgba(142,68,173,.18), transparent 60%),
-                  radial-gradient(420px 240px at 90% 80%, rgba(76,201,240,.14), transparent 55%);
+      background: radial-gradient(420px 240px at 20% 10%, rgba(142,68,173,.14), transparent 60%),
+                  radial-gradient(420px 240px at 90% 80%, rgba(76,201,240,.10), transparent 55%);
     }
     .card:hover{transform: translateY(-3px);border-color: rgba(255,255,255,.18);background: rgba(255,255,255,.06)}
     .card:hover:after{opacity:1}
@@ -286,7 +285,7 @@
     .card h3{margin:8px 0 6px;font-size:16px}
     .card p{margin:0;color:var(--muted);line-height:1.7;font-size:14px}
 
-    /* Work */
+    /* Work/Solutions */
     .work{
       display:grid;
       grid-template-columns: repeat(3,1fr);
@@ -297,7 +296,7 @@
       border-radius: var(--r);
       padding:18px;
       background:
-        radial-gradient(520px 260px at 20% 10%, rgba(76,201,240,.14), transparent 60%),
+        radial-gradient(520px 260px at 20% 10%, rgba(76,201,240,.10), transparent 60%),
         linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       box-shadow: var(--shadow2);
       position:relative;overflow:hidden;
@@ -341,7 +340,6 @@
     .cta-band h2{margin:0;font-size:20px}
     .cta-band p{margin:6px 0 0;color:rgba(255,255,255,.86);line-height:1.6}
     .cta-band .btn{background:rgba(0,0,0,.16);border:1px solid rgba(255,255,255,.22);box-shadow:none}
-    .cta-band .btn:hover{background:rgba(0,0,0,.22)}
 
     /* Contact */
     .contact-grid{
@@ -366,7 +364,7 @@
       transition: border .15s ease, background .15s ease;
     }
     input:focus, textarea:focus, select:focus{
-      border-color: rgba(76,201,240,.40);
+      border-color: rgba(76,201,240,.35);
       background: rgba(255,255,255,.06);
     }
     textarea{min-height:120px;resize:vertical}
@@ -393,21 +391,15 @@
       display:flex;gap:10px;align-items:center;
       box-shadow: 0 16px 50px rgba(0,0,0,.32);
       transition: transform .15s ease, background .15s ease;
+      will-change: transform;
     }
     .wa:hover{transform:translateY(-2px);background: rgba(37,211,102,.18)}
     .wa strong{font-size:13px}
     .wa small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
 
-    /* Reveal animations */
-    .reveal{
-      opacity:0;
-      transform: translateY(14px);
-      transition: opacity .6s ease, transform .6s ease;
-    }
-    .reveal.in{
-      opacity:1;
-      transform: translateY(0);
-    }
+    /* Reveal animations (kept, but lighter) */
+    .reveal{opacity:0;transform: translateY(12px);transition: opacity .55s ease, transform .55s ease}
+    .reveal.in{opacity:1;transform: translateY(0)}
 
     @media (max-width: 980px){
       .hero-grid{grid-template-columns:1fr}
@@ -422,7 +414,6 @@
       .panel{padding:20px}
     }
 
-    /* reduce motion accessibility */
     @media (prefers-reduced-motion: reduce){
       .blob{animation:none}
       .reveal{transition:none}
@@ -458,7 +449,7 @@
 
         <div class="nav-cta">
           <a class="btn ghost" href="#contact">Get a Quote</a>
-          <a class="btn primary" href="#contact">Free Consultation <span class="arrow">→</span></a>
+          <a class="btn primary" href="#contact">Free Consultation <span style="opacity:.9">→</span></a>
         </div>
       </div>
     </div>
@@ -481,24 +472,15 @@
           </p>
 
           <div class="hero-actions">
-            <a class="btn primary" href="#contact" id="ctaHero">Start Your Project <span class="arrow">→</span></a>
+            <a class="btn primary" href="#contact" id="ctaHero">Start Your Project <span style="opacity:.9">→</span></a>
             <a class="btn" href="#" id="ctaHeroWA">WhatsApp Us 💬</a>
             <a class="btn ghost" href="#work">See Use Cases</a>
           </div>
 
           <div class="stats">
-            <div class="stat">
-              <b>Fast Delivery</b>
-              <span>Clear milestones & weekly updates.</span>
-            </div>
-            <div class="stat">
-              <b>Performance-First</b>
-              <span>Speed, security, and scalability.</span>
-            </div>
-            <div class="stat">
-              <b>Long-Term Support</b>
-              <span>Maintenance & continuous improvements.</span>
-            </div>
+            <div class="stat"><b>Fast Delivery</b><span>Clear milestones & weekly updates.</span></div>
+            <div class="stat"><b>Performance-First</b><span>Speed, security, and scalability.</span></div>
+            <div class="stat"><b>Long-Term Support</b><span>Maintenance & continuous improvements.</span></div>
           </div>
         </div>
 
@@ -520,7 +502,7 @@
           </div>
 
           <div style="margin-top:14px">
-            <a class="btn primary" href="#contact" id="ctaSide">Request Pricing <span class="arrow">→</span></a>
+            <a class="btn primary" href="#contact" id="ctaSide">Request Pricing <span style="opacity:.9">→</span></a>
           </div>
         </aside>
       </div>
@@ -765,29 +747,19 @@
   </a>
 
   <script>
-    // ===== CONFIG =====
-    const WHATSAPP_NUMBER = "201011142377"; // no +
-    const yearEl = document.getElementById("year");
-    yearEl.textContent = new Date().getFullYear();
+    const WHATSAPP_NUMBER = "201011142377";
+    document.getElementById("year").textContent = new Date().getFullYear();
 
     function waLink(message){
       return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     }
 
-    // Wire WhatsApp buttons
     const msgDefault = "Hi Betax, I'd like a free consultation. My project is:";
-    const msgRealEstate = "Hi Betax, I need a real estate website focused on lead generation. Details:";
-    const msgEdu = "Hi Betax, I need an e-learning platform for teachers/students. Details:";
+    document.getElementById("ctaHeroWA").href = waLink(msgDefault);
+    document.getElementById("ctaBandWA").href = waLink(msgDefault);
+    document.getElementById("waFloat").href = waLink(msgDefault);
 
-    const heroWA = document.getElementById("ctaHeroWA");
-    const bandWA = document.getElementById("ctaBandWA");
-    const floatWA = document.getElementById("waFloat");
-
-    heroWA.href = waLink(msgDefault);
-    bandWA.href = waLink(msgDefault);
-    floatWA.href = waLink(msgDefault);
-
-    // Reveal on scroll (professional animation)
+    // reveal on scroll
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{
         if(e.isIntersecting){
@@ -799,21 +771,16 @@
 
     document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
 
-    // Contact form -> WhatsApp with filled info
-    const form = document.getElementById("contactForm");
-    form.addEventListener("submit", (e)=>{
+    // form -> WhatsApp
+    document.getElementById("contactForm").addEventListener("submit", (e)=>{
       e.preventDefault();
       const name = document.getElementById("name").value.trim();
       const phone = document.getElementById("phone").value.trim();
       const service = document.getElementById("service").value.trim();
       const msg = document.getElementById("msg").value.trim();
 
-      let preset = msgDefault;
-      if(service.toLowerCase().includes("learning")) preset = msgEdu;
-      if(service.toLowerCase().includes("web") && (msg.toLowerCase().includes("real estate") || msg.toLowerCase().includes("property"))) preset = msgRealEstate;
-
       const composed =
-        `${preset}\n\n` +
+        `Hi Betax, I'd like a quote.\n\n` +
         `Name: ${name}\n` +
         (phone ? `Phone: ${phone}\n` : "") +
         `Service: ${service}\n` +
